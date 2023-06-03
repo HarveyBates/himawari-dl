@@ -22,11 +22,13 @@
  * THE SOFTWARE.
  ******************************************************************************/
 
+#include <pthread.h>
+
 #include "http_utils.h"
 #include "img_config.h"
-#include "pthread.h"
+#include "img_processing.h"
 
-int main(int argc, char **argv) {
+int main(void) {
   char urls[16][100];
   pthread_t tid[16];
   uint16_t allocated_urls, i;
@@ -34,7 +36,13 @@ int main(int argc, char **argv) {
   HTTP_Data_TypeDef request;
   struct thread_args args[16];
   char filename[16][30];
+
   int error;
+  size_t x, y, img_index = 1;
+  char rfilename[30];
+  Image images[4][4];
+  const uint16_t row = sizeof(images) / sizeof(images[0]);
+  const uint16_t column = sizeof(images[0]) / sizeof(images[0][0]);
 
   /* Setup CURL */
   if (curl_global_init(CURL_GLOBAL_ALL) != CURLE_OK) {
@@ -66,6 +74,16 @@ int main(int argc, char **argv) {
   for (i = 0; i < allocated_urls; i++) {
     pthread_join(tid[i], NULL);
   }
+
+  for (y = 0; y < column; y++) {
+    for (x = 0; x < row; x++) {
+      snprintf(rfilename, sizeof(rfilename), "imgs/img_%lu.png", img_index++);
+      read_png(rfilename, &images[x][y]);
+      memset(rfilename, 0, sizeof(rfilename));
+    }
+  }
+
+  join_images("imgs/outfile.png", images);
 
   /* Memory cleanup */
   curl_global_cleanup();

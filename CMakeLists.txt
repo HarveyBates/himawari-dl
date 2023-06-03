@@ -14,16 +14,25 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Set required packages
 find_package(CURL REQUIRED)
-find_package(OpenCV REQUIRED)
+find_package(PNG REQUIRED)
+
+include_directories(${CMAKE_SOURCE_DIR}/include ${CURL_INCLUDE_DIR}
+        ${PNG_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME} ${SRC_DIR} ${INC_DIR})
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
 target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors)
+target_compile_options(${PROJECT_NAME} PRIVATE -pedantic)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wextra)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wshadow)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wundef)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wfloat-equal)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wpointer-arith)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wcast-align)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wstrict-prototypes)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wstrict-overflow)
 target_compile_options(${PROJECT_NAME} PRIVATE -Wno-misleading-indentation)
 
-include_directories(${CMAKE_SOURCE_DIR}/include ${CURL_INCLUDE_DIR}
-        ${OpenCV_INCLUDE_DIRS})
-
-target_link_libraries(${PROJECT_NAME} ${CURL_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(${PROJECT_NAME} ${CURL_LIBRARIES} ${PNG_LIBRARIES})

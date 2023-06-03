@@ -37,8 +37,6 @@ void* HTTP_GetImage(void* arguments) {
     return NULL;
   }
 
-  printf("Filename: %s URL: %s\n", args->filename, args->url);
-
   /* Open a file to write to */
   file = fopen(args->filename, "wb");
   if (!file) {
