@@ -6,11 +6,6 @@
 CLI for downloading high-resolution images from the Japanese geostationary
 satellite, Himawari.
 
-This program multi-threading to download image segments and
-combines them to produce a final high-resolution image.
-
-It is written in C89 and was a weekend project.
-
 ## Instructions for use
 
 ### Requirements
