@@ -1,4 +1,7 @@
-# Himawari-dl <img align="right" width=250 border=0;" src="imgs/outfile.png">
+# Himawari-dl
+<html>
+<img align="right" width=300 border=0;" src="imgs/outfile.png">
+</html>
 
 CLI for downloading high-resolution images from the Japanese geostationary
 satellite, Himawari.
