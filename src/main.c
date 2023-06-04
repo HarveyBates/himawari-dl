@@ -28,8 +28,8 @@
 #include "img_config.h"
 #include "img_processing.h"
 
-int main(void) {
-  char urls[16][100];
+int main(int argc, char** argv) {
+  char urls[16][90];
   pthread_t tid[16];
   uint16_t allocated_urls, i;
   struct tm time_now;
@@ -51,10 +51,6 @@ int main(void) {
 
   HTTP_GetClosestTimestamp(time(NULL), &request);
 
-  if (request.memory) {
-    printf("URL: %s\n", request.memory);
-  }
-
   if (!HTTP_JSONToTime(request.memory, &time_now)) {
     fprintf(stderr, "Time conversion failed\n");
   }
@@ -64,7 +60,7 @@ int main(void) {
     snprintf(filename[i], sizeof(filename[i]), "imgs/img_%d.png", i + 1);
     args[i].url = urls[i];
     args[i].filename = filename[i];
-    error = pthread_create(&tid[i], NULL, HTTP_GetImage, (void *)&args[i]);
+    error = pthread_create(&tid[i], NULL, HTTP_GetImage, (void*)&args[i]);
     if (0 != error) {
       fprintf(stdout, "Error running thread (%d), errno %d\n", i, error);
     }
@@ -86,6 +82,7 @@ int main(void) {
   join_images("imgs/outfile.png", images);
 
   /* Memory cleanup */
+cleanup:
   curl_global_cleanup();
   free(request.memory);
 

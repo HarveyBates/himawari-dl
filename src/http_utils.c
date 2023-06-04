@@ -97,7 +97,7 @@ static size_t WriteMemoryCallback(void* contents, size_t size, size_t nmemb,
 
 CURLcode HTTP_GetClosestTimestamp(uint64_t unix_t_ms,
                                   HTTP_Data_TypeDef* response) {
-  char url[80];
+  char url[90];
   const char* TIMESTAMP_BASE_URL =
       "https://ncthmwrwbtst.cr.chiba-u.ac.jp/img/D531106/latest.json?_=";
   CURLcode result;

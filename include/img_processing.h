@@ -31,6 +31,7 @@
 #include <string.h>
 
 typedef struct {
+  char filename[128];
   png_bytep* prow;
   png_uint_32 width, height;
   uint32_t grid_rows, grid_columns;

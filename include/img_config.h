@@ -36,7 +36,7 @@ typedef enum {
   RESOLUTION_ULTRA_HIGH = 20 /* 20 x 20 = 400 images */
 } IMGResolution;
 
-uint16_t build_url(char (*urls)[100], uint16_t n_urls, size_t url_size,
+uint16_t build_url(char (*urls)[90], uint16_t n_urls, size_t url_size,
                    IMGResolution res, struct tm* timestamp);
 
 #endif /* HIMAWARI_DL_IMG_CONFIG_H */
